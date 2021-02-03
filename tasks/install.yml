@@ -16,7 +16,7 @@
 - name: download ssl exporter binary to local folder
   become: false
   unarchive:
-    src: "https://github.com/ribbybibby/ssl_exporter/releases/download/v{{ ssl_exporter_version }}/ssl_exporter_{{ ssl_exporter_version }}_linux_{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}.tar.gz"
+    src: "https://github.com/{{ ssl_exporter_repo }}/releases/download/v{{ ssl_exporter_version }}/ssl_exporter_{{ ssl_exporter_version }}_linux_{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}.tar.gz"
     dest: "/tmp"
     remote_src: true
     creates: "/tmp/ssl_exporter"

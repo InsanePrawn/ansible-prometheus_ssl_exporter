@@ -20,3 +20,16 @@
   assert:
     that:
       - "':' in ssl_exporter_web_listen_address"
+
+- name: Update latest release tag
+  check_mode: false
+  block:
+    - name: Get github release info
+      uri:
+        url: "https://api.github.com/repos/{{ ssl_exporter_repo }}/releases/latest"
+        return_content: true
+      register: json_reponse
+    - name: Export latest release
+      set_fact:
+        ssl_exporter_version: "{{ json_reponse.json.tag_name | regex_replace('^v','') }}"
+  when: ssl_exporter_version == 'latest'
